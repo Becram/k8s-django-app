@@ -55,6 +55,8 @@ secrets:
   postgres_user: bikram
   postgres_password: dhoju
 
+jobController:
+  command1: ['python', 'manage.py', 'migrate']
 
 
 ingress:
