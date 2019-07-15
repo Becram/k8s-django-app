@@ -36,20 +36,20 @@ spec:
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: postgres-credentials
-                  key: user
+                  name: django-secrets
+                  key: postgres_user
 
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-credentials
-                  key: password
+                  name: django-secrets
+                  key: postgres_password
 
 
             - name: POSTGRES_DB
               value: app_db
             - name: POSTGRES_HOST
-              value: postgres-service
+              value: {{ .Chart.Name }}-postgres
           ports:
             - containerPort: {{ .Values.rcDjango.containerPort }}
 

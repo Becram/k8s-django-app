@@ -21,14 +21,14 @@ spec:
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: postgres-credentials
-                  key: user
+                  name: django-secrets
+                  key: postgres_user
 
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-credentials
-                  key: password
+                  name: django-secrets
+                  key: postgres_password
            
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
@@ -45,4 +45,4 @@ spec:
       volumes:
         - name: postgres-volume-mount
           persistentVolumeClaim:
-            claimName: postgres-pvc
+            claimName: {{ .Values.pvcPostgres.name }}

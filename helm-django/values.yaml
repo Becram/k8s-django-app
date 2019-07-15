@@ -39,7 +39,7 @@ svcPostgres:
   targetPort: 5432
 
 scPostgres:
-  metadata: postgres-pv
+  name: postgres-pv
   zones: us-east-2a, us-east-2b
   type: gp2
   iopsPerGB: "10"
@@ -52,8 +52,8 @@ pvcPostgres:
 
 
 secrets:
-  username: bikram
-  password: dhoju
+  postgres_user: bikram
+  postgres_password: dhoju
 
 
 

@@ -1,7 +1,7 @@
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-  name: {{ .Values.scPostgres.metadata }}
+  name: {{ .Values.scPostgres.name }}
 provisioner:  kubernetes.io/aws-ebs
 parameters:
   type: {{ .Values.scPostgres.type}}
