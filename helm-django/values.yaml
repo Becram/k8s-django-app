@@ -5,9 +5,9 @@
 rcDjango:
   tier: backend
   app: django
-  replicaCount: 3
+  replicaCount: 1
   repository: becram/djangogirls-app
-  tag: 1.3-orange
+  tag: 1.3-maroon
   pullPolicy: IfNotPresent
   cpuLimit: "1"
   cpuRequest: "0.1"
@@ -19,7 +19,7 @@ rcDjango:
 rcPostgres:
   tier: backend
   app: postgres
-  replicaCount: 3
+  replicaCount: 1
   repository: becram/postgresql
   tag: 9.5
   pullPolicy: IfNotPresent
@@ -55,8 +55,6 @@ secrets:
   postgres_user: bikram
   postgres_password: dhoju
 
-jobController:
-  command1: ['python', 'manage.py', 'migrate']
 
 
 ingress:
