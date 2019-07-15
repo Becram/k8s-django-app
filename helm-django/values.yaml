@@ -38,7 +38,22 @@ svcPostgres:
   port: 5432
   targetPort: 5432
 
+scPostgres:
+  metadata: postgres-pv
+  zones: us-east-2a, us-east-2b
+  type: gp2
+  iopsPerGB: "10"
+  fsType: ext4
+
+
+pvcPostgres:
+  name: postgres-pvc
+  storage: 1Gi
+
+
 secrets:
+  username: bikram
+  password: dhoju
 
 
 

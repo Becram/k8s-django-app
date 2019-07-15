@@ -1,0 +1,10 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: {{ .Values.scPostgres.metadata }}
+provisioner:  kubernetes.io/aws-ebs
+parameters:
+  type: {{ .Values.scPostgres.type}}
+  zones: {{ .Values.scPostgres.zones }}
+  iopsPerGB: {{ .Values.scPostgres.iopsPerGB | quote}}
+  fsType: {{ .Values.scPostgres.fsType }}
