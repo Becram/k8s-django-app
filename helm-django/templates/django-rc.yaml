@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: ReplicationController
+{{- include "django_metadata" . }}
+
+spec:
+  replicas: {{ .Values.rcDjango.replicaCount }}
+  template:
+     {{- include "django_metadata" . | indent 4 }}
+    spec:
+      containers:
+        - name: django-app
+          image: {{ .Values.rcDjango.repository }}:{{ .Values.rcDjango.tag }}
+          imagePullPolicy: {{ .Values.rcDjango.pullPolicy }}
+          resources:
+            limits:
+              cpu: {{ .Values.rcDjango.cpuLimit | quote }}
+              memory: {{ .Values.rcDjango.memoryLimit | quote }}
+            requests:
+              cpu: {{ .Values.rcDjango.cpuRequest | quote }}
+              memory: {{ .Values.rcDjango.memoryRequest | quote}}
+          env:
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+
+            - name: MY_POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+
+            - name: MY_POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: user
+
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: password
+
+
+            - name: POSTGRES_DB
+              value: app_db
+            - name: POSTGRES_HOST
+              value: postgres-service
+          ports:
+            - containerPort: {{ .Values.rcDjango.containerPort }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

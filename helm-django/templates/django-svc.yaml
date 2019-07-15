@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+{{- include "django_metadata" . }}
+spec:
+  type: {{ .Values.svcDjango.type }}
+  ports:
+  - port: {{ .Values.svcDjango.port}}
+    targetPort: {{ .Values.svcDjango.targetPort }}
+  selector:
+    {{- include "django_labels" . | indent 4 }}
