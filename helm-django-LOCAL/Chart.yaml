@@ -1,0 +1,16 @@
+name: django-k8s
+description: A basic Django app  
+icon: https://apsl.github.io/kubernetes-charts/images/django-celery.png
+apiVersion: v1
+version: v1.0
+keywords:
+  - django
+  - django-k8s
+  - web
+home: https://github.com/helm/helm
+sources:
+  - https://hub.docker.com/_/nginx/
+maintainers:
+  - name: Bikram Dhoju
+    email: itsbecram@gmail.com
+    website: bikramdhoju.com.np

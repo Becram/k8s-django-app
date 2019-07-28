@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+{{- include "postgres_metadata" . }}
+spec:
+  replicas: {{ .Values.rcPostgres.replicaCount }}
+  template:
+    {{- include "postgres_metadata" . | indent 4 }}
+    spec:
+      containers:
+        - name: postgres
+          image: {{ .Values.rcPostgres.repository }}:{{ .Values.rcPostgres.tag }}
+          imagePullPolicy: {{ .Values.rcPostgres.pullPolicy }}
+          resources:
+            limits:
+              cpu: {{ .Values.rcPostgres.cpuLimit | quote }}
+              memory: {{ .Values.rcPostgres.memoryLimit | quote }}
+            requests:
+              cpu: {{ .Values.rcPostgres.cpuRequest | quote }}
+              memory: {{ .Values.rcPostgres.memoryRequest | quote}}
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: django-secrets
+                  key: postgres_user
+
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: django-secrets
+                  key: postgres_password
+           
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+
+            - name: POSTGRES_DB
+              value: app_db
+
+          ports:
+            - containerPort: {{ .Values.rcPostgres.containerPort }}
+          volumeMounts:
+            - name: postgres-volume-mount
+              mountPath: /var/lib/postgresql/data
+
+      volumes:
+        - name: postgres-volume-mount
+          persistentVolumeClaim:
+            claimName: {{ .Values.pvcPostgres.name }}

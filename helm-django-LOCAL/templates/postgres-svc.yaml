@@ -1,0 +1,10 @@
+kind: Service
+apiVersion: v1
+{{- include "postgres_metadata" . }}
+spec:
+  selector:
+    {{- include "postgres_labels" . | indent 4 }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.svcPostgres.port}}
+      targetPort: {{ .Values.svcPostgres.targetPort }}
